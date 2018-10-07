@@ -20,22 +20,8 @@
                                 <th>Delete</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr v-for="owner in owners" :key="owner.id">
-                                <td>{{ owner.name }}</td>
-                                <td>{{ owner.address }}</td>
-                                <td>{{ owner.dateOfBirth }}</td>
-                                <td>
-                                    <b-button variant="default">Details</b-button>
-                                </td>
-                                <td>
-                                    <b-button variant="success">Update</b-button>
-                                </td>
-                                <td>
-                                    <b-button variant="danger">Delete</b-button>
-                                </td>
-                                
-                            </tr>
+                        <tbody>                                                            
+                            <owner-list-row v-for="owner in owners" :key="owner.id" :owner="owner" />
                         </tbody>
                     </table>
                 </div>
@@ -46,9 +32,13 @@
 
 <script>
 import OwnerService from '@/api-services/owner.service';
+import OwnerListRow from '@/components/owner/OwnerListRow';
 
 export default {
     name: 'OwnerList',
+    components: {
+        OwnerListRow
+    },
     data() {
         return {
             owners: []
