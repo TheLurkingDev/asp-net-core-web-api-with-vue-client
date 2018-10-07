@@ -21,7 +21,11 @@
                             </tr>
                         </thead>
                         <tbody>                                                            
-                            <owner-list-row v-for="owner in owners" :key="owner.id" :owner="owner" />
+                            <owner-list-row 
+                            v-for="owner in owners" :key="owner.id" :owner="owner"
+                            @details="detailsOwner"
+                            @update="updateOwner"
+                            @delete="deleteOwner" />
                         </tbody>
                     </table>
                 </div>
@@ -48,6 +52,17 @@ export default {
         OwnerService.getAll().then((response) => {
             this. owners = response.data;
         })
+    },
+    methods: {
+        detailsOwner(ownerId) {
+            console.log('details', ownerId);
+        },
+        updateOwner(ownerId) {
+            console.log('update', ownerId);
+        },
+        deleteOwner(ownerId) {
+            console.log('delete', ownerId);
+        }
     }
 }
 </script>
