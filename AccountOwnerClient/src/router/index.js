@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home';
 import NotFound from '@/error-pages/NotFound';
 import OwnerList from '@/components/owner/OwnerList';
+import OwnerDetails from '@/components/owner/OwnerDetails';
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/owner',
       name: 'OwnerList',
       component: OwnerList
+    },
+    {
+      path: '/owner/:id',
+      name: 'OwnerDetails',
+      component: OwnerDetails
     },
     {
       path: '*',

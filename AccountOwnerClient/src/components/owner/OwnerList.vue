@@ -55,7 +55,7 @@ export default {
     },
     methods: {
         detailsOwner(ownerId) {
-            console.log('details', ownerId);
+            this.$router.push({ name: 'OwnerDetails', params: { id: ownerId }});
         },
         updateOwner(ownerId) {
             console.log('update', ownerId);
