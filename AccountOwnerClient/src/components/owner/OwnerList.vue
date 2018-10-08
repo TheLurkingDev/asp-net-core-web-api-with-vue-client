@@ -31,6 +31,19 @@
                 </div>
             </b-col>
         </b-row>
+        <b-modal
+        ref="deleteConfirmModal"
+        title="Confirm your action"
+        @ok="onDeleteConfirm"
+        @hide="onDeleteModalHide">
+            <p class="my-4">Are you sure you want to delete this owner?</p>
+        </b-modal>
+        <b-modal
+        ref="alertModal"
+        :title="alertModalTitle"
+        :ok-only="true">
+            <p class="my-4">{{ alertModalContent }}</p>
+        </b-modal>
     </div>
 </template>
 
@@ -45,13 +58,14 @@ export default {
     },
     data() {
         return {
-            owners: []
+            owners: [],
+            selectedOwnerId: null,
+            alertModalTitle: '',
+            alertModalContent: ''
         }
     },
     created() {
-        OwnerService.getAll().then((response) => {
-            this. owners = response.data;
-        })
+        this.fetchOwners();
     },
     methods: {
         detailsOwner(ownerId) {
@@ -61,7 +75,28 @@ export default {
             console.log('update', ownerId);
         },
         deleteOwner(ownerId) {
-            console.log('delete', ownerId);
+            this.selectedOwnerId = ownerId;
+            this.$refs.deleteConfirmModal.show();
+        },
+        fetchOwners() {
+            OwnerService.getAll().then((response) => {
+                this.owners = response.data;
+            })
+        },
+        onDeleteConfirm() {
+            OwnerService.delete(this.selectedOwnerId).then(() => {
+                this.alertModalTitle = 'Success';
+                this.alertModalContent = 'Successfully deleted account owner';
+                this.$refs.alertModal.show();
+                this.fetchOwners();
+            }).catch((error) => {
+                this.alertModalTitle = 'Error';
+                this.alertModalContent = error.response.data;
+                this.$refs.alertModal.show();
+            })
+        },
+        onDeleteModalHide() {
+            this.selectedOwnerId = null;
         }
     }
 }
