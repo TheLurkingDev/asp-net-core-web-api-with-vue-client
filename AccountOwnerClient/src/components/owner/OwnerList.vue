@@ -72,7 +72,7 @@ export default {
             this.$router.push({ name: 'OwnerDetails', params: { id: ownerId }});
         },
         updateOwner(ownerId) {
-            console.log('update', ownerId);
+            this.$router.push({ name: 'OwnerUpdate', params: { id: ownerId }});
         },
         deleteOwner(ownerId) {
             this.selectedOwnerId = ownerId;

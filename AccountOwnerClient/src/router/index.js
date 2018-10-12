@@ -5,6 +5,7 @@ import NotFound from '@/error-pages/NotFound';
 import OwnerList from '@/components/owner/OwnerList';
 import OwnerDetails from '@/components/owner/OwnerDetails';
 import OwnerCreate from '@/components/owner/OwnerCreate';
+import OwnerUpdate from '@/components/owner/OwnerUpdate';
 
 Vue.use(Router)
 
@@ -25,6 +26,11 @@ export default new Router({
       path: '/owner/create',
       name: 'OwnerCreate',
       component: OwnerCreate
+    },
+    {
+      path: '/owner/update/:id',
+      name: 'OwnerUpdate',
+      component: OwnerUpdate
     },
     {
       path: '/owner/:id',
