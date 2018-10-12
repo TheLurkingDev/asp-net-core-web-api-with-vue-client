@@ -71,6 +71,53 @@
     </b-container>
 </template>
 
+<script>
+import OwnerService from '@/api-services/owner.service';
+
+export default {
+    name: 'OwnerCreate',
+    data() {
+        return {
+            formData: {
+                name: '',
+                dateOfBirth: '',
+                address: ''
+            },
+            alertModalTitle: '',
+            alertModalContent: '',
+            isSuccessful: false
+        }
+    },
+    methods: {
+        createOwner() {
+            OwnerService.create(this.formData).then(() => {
+                this.isSuccessful = true;
+                this.alertModalTitle = "Success";
+                this.alertModalContent = "Account owner created";
+                this.$refs.alertModal.show();
+
+                this.formData = {
+                    name: '',
+                    dateOfBirth: '',
+                    address: ''
+                };
+            }).catch((error) => {
+                this.isSuccessful = false;
+                this.alertModalTitle = "Error";
+                this.alertModalContent = error.response.data;
+                this.$refs.alertModal.show();
+            })
+        },
+        onAlertModalOkClick() {
+            if(this.isSuccessful) {
+                this.$router.push({ name: 'OwnerList' });
+            }
+        }
+    }
+}
+</script>
+
+
 <style>
     .form-wrapper {
         margin-top: 20px;

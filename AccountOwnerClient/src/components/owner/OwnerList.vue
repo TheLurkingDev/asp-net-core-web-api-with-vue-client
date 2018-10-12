@@ -2,7 +2,7 @@
     <div>
         <b-row>
             <b-col md="2" offset-md="10">
-                <a href="#">Create owner</a>
+                <router-link :to="{ name: 'OwnerCreate' }">Create owner</router-link>
             </b-col>
         </b-row>
         <br />
